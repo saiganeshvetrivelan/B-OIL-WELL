@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
 import { useThemeStore } from './stores/themeStore';
 
@@ -48,7 +48,7 @@ function ThemeInitializer() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeInitializer />
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
@@ -78,6 +78,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/app/overview" replace />} />
         </Routes>
       </Suspense>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
