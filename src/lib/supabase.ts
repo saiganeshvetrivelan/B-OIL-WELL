@@ -1,17 +1,22 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const supabaseUrl =
+  (import.meta.env.VITE_SUPABASE_URL as string) ||
+  'https://oxfgfmrdiwmnoewttirq.supabase.co';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(
-    '[Supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY in .env — real-time data disabled, running on simulation fallback.'
-  );
-}
+const supabaseAnonKey =
+  (import.meta.env.VITE_SUPABASE_ANON_KEY as string) ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94ZmdmbXJkaXdtbm9ld3R0aXJxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTIxNjMxMywiZXhwIjoyMTA0NzkyMzEzfQ.x5jvbYZxbSiawFGF7BFGpU9PhN4M7hPkLRXhxtabnYI';
 
 export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
+
+if (!supabase) {
+  console.warn(
+    '[Supabase] Missing Supabase credentials — real-time data disabled, running on simulation fallback.'
+  );
+}
 
 // ─── Well Telemetry Row Type ──────────────────────────────────────────────────
 export interface WellTelemetryRow {
