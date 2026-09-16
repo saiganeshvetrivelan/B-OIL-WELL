@@ -25,10 +25,10 @@ export default function DigitalTwin() {
   };
 
   const cameraPresets = [
-    { id: 'full',      label: 'FULL WELL',  icon: Maximize },
-    { id: 'surface',   label: 'SURFACE PUMP', icon: Camera },
-    { id: 'wellbore',  label: 'WELLBORE',   icon: Layers },
-    { id: 'reservoir', label: 'RESERVOIR',  icon: Thermometer },
+    { id: 'full', label: 'FULL WELL', icon: Maximize },
+    { id: 'surface', label: 'SURFACE PUMP', icon: Camera },
+    { id: 'wellbore', label: 'WELLBORE', icon: Layers },
+    { id: 'reservoir', label: 'RESERVOIR', icon: Thermometer },
   ];
 
   const isLive = status === 'live';
@@ -83,11 +83,10 @@ export default function DigitalTwin() {
                 <button
                   key={preset.id}
                   onClick={() => setCameraMode(preset.id as any)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold tracking-wider transition-all ${
-                    isActive
-                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-sm'
-                      : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-surface)]'
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold tracking-wider transition-all ${isActive
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-sm'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-surface)]'
+                    }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
                   <span>{preset.label}</span>
@@ -97,27 +96,7 @@ export default function DigitalTwin() {
           </div>
 
           {/* Pause / Resume Well Motion Button */}
-          <button
-            onClick={toggleWorkPaused}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-[11px] font-mono font-bold tracking-wider transition-all border shadow-lg backdrop-blur-md ${
-              isWorkPaused
-                ? 'bg-amber-500 text-slate-950 border-amber-400 hover:bg-amber-400 animate-pulse'
-                : 'bg-[var(--bg-panel)]/95 text-[var(--text-primary)] border-[var(--border-color)] hover:border-amber-500/50 hover:text-amber-400'
-            }`}
-            title={isWorkPaused ? "Resume 3D well motion and pumping" : "Pause 3D well motion and pumping"}
-          >
-            {isWorkPaused ? (
-              <>
-                <Play className="w-3.5 h-3.5 fill-current" />
-                <span>RESUME WORK</span>
-              </>
-            ) : (
-              <>
-                <Pause className="w-3.5 h-3.5 fill-current text-amber-400" />
-                <span>PAUSE WORK</span>
-              </>
-            )}
-          </button>
+
         </div>
 
         {/* Bottom Left — Asset Identity & Live Link */}
@@ -127,13 +106,13 @@ export default function DigitalTwin() {
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isLive ? 'bg-emerald-400' : 'bg-amber-400'} opacity-75`} />
               <span className={`relative inline-flex rounded-full h-2 w-2 ${isLive ? 'bg-emerald-500' : 'bg-amber-500'}`} />
             </span>
-            <span className="font-bold text-[var(--text-primary)]">WELL BGW-01</span>
+            <span className="font-bold text-[var(--text-primary)]">WELL 01</span>
             <span className="text-[var(--text-muted)]">· BAGHEWALA HEAVY OIL</span>
           </div>
           <div className="flex items-center gap-2 mt-1 text-[10px] text-[var(--text-muted)]">
             <Database className="w-3 h-3 text-amber-400" />
             <span>
-              {isLive ? 'Supabase Realtime Synced · 3D Motion Driven by Live Stream' : 'Telemetric Baseline Mode · Ready for Live Stream'}
+              {isLive ? 'Connected' : 'Not Connected'}
             </span>
           </div>
         </div>
@@ -188,7 +167,7 @@ export default function DigitalTwin() {
           <div className="flex items-center justify-between">
             <h2 className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
               <Radio className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-              Live Telemetry Feed
+              Live Feed
             </h2>
             <LiveDataTag status={status} />
           </div>
@@ -200,24 +179,7 @@ export default function DigitalTwin() {
 
         <div className="flex-1 p-4 space-y-4">
           {/* PAUSED BANNER */}
-          {isWorkPaused && (
-            <div className="bg-amber-500/15 border border-amber-500/40 rounded-xl p-3 flex items-center justify-between text-amber-400 shadow-sm">
-              <div className="flex items-center gap-2">
-                <Pause className="w-4 h-4 text-amber-400 shrink-0" />
-                <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wider">3D Movement Paused</p>
-                  <p className="text-[9px] text-amber-400/80 font-mono">Pump jack frozen at current angle</p>
-                </div>
-              </div>
-              <button
-                onClick={toggleWorkPaused}
-                className="px-2.5 py-1 rounded bg-amber-500 text-slate-950 text-[10px] font-bold flex items-center gap-1 hover:bg-amber-400"
-              >
-                <Play className="w-3 h-3 fill-current" />
-                <span>Resume</span>
-              </button>
-            </div>
-          )}
+
 
           {/* SECTION 1: PUMP KINEMATICS (DRIVING 3D MODEL) */}
           <div className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-3.5 space-y-3">
@@ -226,11 +188,10 @@ export default function DigitalTwin() {
                 <ArrowUpDown className="w-3.5 h-3.5 text-cyan-400" />
                 3D Well Motion Drivers
               </span>
-              <span className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold ${
-                isWorkPaused
-                  ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                  : 'bg-cyan-500/10 text-cyan-400'
-              }`}>
+              <span className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold ${isWorkPaused
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                : 'bg-cyan-500/10 text-cyan-400'
+                }`}>
                 {isWorkPaused ? 'PAUSED' : 'ACTIVE'}
               </span>
             </div>
@@ -240,9 +201,8 @@ export default function DigitalTwin() {
               <div>
                 <p className="text-[10px] text-[var(--text-muted)]">Pumping Speed (SRP)</p>
                 <div className="flex items-baseline gap-2">
-                  <p className={`text-lg font-black font-mono tracking-tight ${
-                    isWorkPaused ? 'text-amber-500/50 line-through' : 'text-amber-400'
-                  }`}>
+                  <p className={`text-lg font-black font-mono tracking-tight ${isWorkPaused ? 'text-amber-500/50 line-through' : 'text-amber-400'
+                    }`}>
                     {activeParams.srpSpeed.toFixed(1)} <span className="text-xs text-[var(--text-muted)] font-normal">SPM</span>
                   </p>
                   {isWorkPaused && (

@@ -29,13 +29,13 @@ export default function Overview() {
   }, []);
 
   const chartColors = {
-    primary:      '#F59E0B',
-    secondary:    '#06B6D4',
-    emerald:      '#10B981',
-    grid:         '#1E2D45',
-    text:         '#4E6070',
-    tooltipBg:    '#0C1220',
-    tooltipBorder:'#1E2D45',
+    primary: '#F59E0B',
+    secondary: '#06B6D4',
+    emerald: '#10B981',
+    grid: '#1E2D45',
+    text: '#4E6070',
+    tooltipBg: '#0C1220',
+    tooltipBorder: '#1E2D45',
   };
 
   return (
@@ -78,7 +78,7 @@ export default function Overview() {
           label="OIL PRODUCTION"
           value={output.production.toFixed(1)}
           unit="bbl/d"
-          trend={2.3}
+
           dataStatus={status}
           highlight="amber"
         />
@@ -86,7 +86,7 @@ export default function Overview() {
           label="RESERVOIR TEMP"
           value={output.reservoirTemperature.toFixed(0)}
           unit="°C"
-          trend={0.5}
+
           dataStatus={status}
           highlight="orange"
         />
@@ -94,7 +94,7 @@ export default function Overview() {
           label="STEAM INJECTION"
           value={params.steamRate.toFixed(0)}
           unit="t/cyc"
-          trend={-1.2}
+
           dataStatus={status}
           highlight="cyan"
         />
@@ -102,7 +102,7 @@ export default function Overview() {
           label="PUMP EFFICIENCY"
           value={output.pumpEfficiency.toFixed(0)}
           unit="%"
-          trend={-0.8}
+
           dataStatus={status}
           highlight="emerald"
         />
@@ -110,7 +110,7 @@ export default function Overview() {
           label="ENERGY"
           value={output.energyConsumption.toFixed(0)}
           unit="kWh"
-          trend={1.1}
+
           dataStatus={status}
         />
         <KPIWidget
@@ -131,7 +131,7 @@ export default function Overview() {
             <div className="bg-[var(--bg-panel)]/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[var(--border-color)] flex items-center gap-2">
               <Box className="w-3.5 h-3.5 text-amber-400" />
               <span className="text-[11px] font-bold text-[var(--text-primary)] uppercase tracking-wider">
-                Live 3D Digital Twin
+                Live Monitoring
               </span>
             </div>
             <LiveDataTag status={status} />
@@ -154,7 +154,7 @@ export default function Overview() {
               onClick={() => navigate('/app/digital-twin')}
               className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] transition-all shadow-lg shadow-amber-500/20 flex items-center gap-1.5"
             >
-              <span>Explore Full 3D Twin</span>
+              <span>Full Screen</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -170,13 +170,13 @@ export default function Overview() {
 
           <div className="space-y-2.5 text-[11px] font-mono flex-1">
             {[
-              { label: 'CSS Cycle Phase',     value: cssPhase,              color: 'text-amber-400',   icon: <Zap className="w-3 h-3" /> },
-              { label: 'Active Cycle',        value: 'Cycle #14',           color: 'text-[var(--text-primary)]', icon: null },
-              { label: 'SRP Unit Speed',      value: `${params.srpSpeed} SPM`,   color: 'text-emerald-400', icon: <Gauge className="w-3 h-3" /> },
-              { label: 'Stroke Length',       value: `${params.strokeLength} m`,  color: 'text-cyan-400',    icon: null },
-              { label: 'Steam Temperature',   value: `${params.steamTemperature} °C`, color: 'text-orange-400', icon: <Thermometer className="w-3 h-3" /> },
-              { label: 'Dynamic Fluid Level', value: `${params.fluidLevel} m`,   color: 'text-sky-400',    icon: null },
-              { label: 'Pump Condition',      value: params.pumpCondition.toUpperCase(), color: 'text-[var(--text-primary)]', icon: null },
+              { label: 'CSS Cycle Phase', value: cssPhase, color: 'text-amber-400', icon: <Zap className="w-3 h-3" /> },
+              { label: 'Active Cycle', value: 'Cycle 1', color: 'text-[var(--text-primary)]', icon: null },
+              { label: 'SRP Unit Speed', value: `${params.srpSpeed} SPM`, color: 'text-emerald-400', icon: <Gauge className="w-3 h-3" /> },
+              { label: 'Stroke Length', value: `${params.strokeLength} m`, color: 'text-cyan-400', icon: null },
+              { label: 'Steam Temperature', value: `${params.steamTemperature} °C`, color: 'text-orange-400', icon: <Thermometer className="w-3 h-3" /> },
+              { label: 'Dynamic Fluid Level', value: `${params.fluidLevel} m`, color: 'text-sky-400', icon: null },
+              { label: 'Pump Condition', value: params.pumpCondition.toUpperCase(), color: 'text-[var(--text-primary)]', icon: null },
             ].map(({ label, value, color, icon }) => (
               <div key={label} className="flex justify-between items-center py-1.5 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-1.5 text-[var(--text-muted)] font-sans">
@@ -205,7 +205,7 @@ export default function Overview() {
             >
               <div className="flex items-center gap-2">
                 <FlaskConical className="w-3.5 h-3.5 text-cyan-400" />
-                <span>What-If Simulation</span>
+                <span>Simulation</span>
               </div>
               <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)]" />
             </button>
@@ -232,7 +232,7 @@ export default function Overview() {
               <AreaChart data={prodHistory.slice(-42)} margin={{ top: 8, right: 8, left: -22, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorProd" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor={chartColors.primary} stopOpacity={0.4} />
+                    <stop offset="5%" stopColor={chartColors.primary} stopOpacity={0.4} />
                     <stop offset="95%" stopColor={chartColors.primary} stopOpacity={0} />
                   </linearGradient>
                 </defs>
@@ -275,7 +275,7 @@ export default function Overview() {
                 <Zap className="w-3.5 h-3.5 text-cyan-400" />
                 CSS Thermal Cycle — Oil vs Steam
               </h3>
-              <p className="text-[10px] text-[var(--text-muted)] mt-0.5">Historical Cycles #7–#14 · bbl / t</p>
+              <p className="text-[10px] text-[var(--text-muted)] mt-0.5">Historical Cycles #1–#14 · bbl / t</p>
             </div>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">bbl / t</span>
           </div>
@@ -295,8 +295,8 @@ export default function Overview() {
                   }}
                 />
                 <Legend wrapperStyle={{ fontSize: '10px', color: chartColors.text }} />
-                <Bar dataKey="oil"   name="Oil Recovered (bbl)" fill={chartColors.primary}   radius={[3, 3, 0, 0]} />
-                <Bar dataKey="steam" name="Steam Injected (t)"  fill={chartColors.secondary} radius={[3, 3, 0, 0]} />
+                <Bar dataKey="oil" name="Oil Recovered (bbl)" fill={chartColors.primary} radius={[3, 3, 0, 0]} />
+                <Bar dataKey="steam" name="Steam Injected (t)" fill={chartColors.secondary} radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

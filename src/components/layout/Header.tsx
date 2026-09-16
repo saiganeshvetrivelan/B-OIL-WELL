@@ -71,17 +71,7 @@ export default function Header() {
 
       {/* Right — Controls & Profile */}
       <div className="flex items-center gap-2.5">
-        <button
-          onClick={toggleWorkPaused}
-          className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold border transition-all ${isWorkPaused
-            ? 'bg-amber-500/20 text-amber-400 border-amber-500/50 hover:bg-amber-500/30'
-            : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-color)] hover:text-[var(--text-primary)]'
-            }`}
-          title={isWorkPaused ? "Resume 3D well motion and pumping" : "Pause 3D well motion and pumping"}
-        >
-          {isWorkPaused ? <Play className="w-3 h-3 text-amber-400 fill-current" /> : <Pause className="w-3 h-3 text-slate-400 fill-current" />}
-          <span>{isWorkPaused ? 'WORK: PAUSED' : 'WORK: ACTIVE'}</span>
-        </button>
+
 
         <ThemeToggle />
         <div className="h-4 w-px bg-[var(--border-color)]" />
