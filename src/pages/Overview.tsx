@@ -4,9 +4,11 @@ import { useSimulationStore } from '../stores/simulationStore';
 import KPIWidget from '../components/ui/KPIWidget';
 import LiveDataTag from '../components/ui/LiveDataTag';
 import DigitalTwinScene from '../components/three/DigitalTwinScene';
+import AIInferenceCard from '../components/ui/AIInferenceCard';
 import { useTelemetryContext } from '../context/TelemetryContext';
 import { DEMO_CSS_CYCLES } from '../data/mockCSS';
 import { generateProductionHistory } from '../data/mockSensors';
+import { TelemetryInferenceInput } from '../services/aiInferenceService';
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -16,7 +18,54 @@ import { Box, Activity, FlaskConical, ChevronRight, TrendingUp, Zap, Thermometer
 export default function Overview() {
   const { output, params, cssPhase } = useSimulationStore();
   const navigate = useNavigate();
-  const { status, lastUpdated } = useTelemetryContext();
+  const { status, lastUpdated, latest } = useTelemetryContext();
+
+  const isRealTelemetry = status === 'live' && latest !== null;
+
+  const telemetryInput: TelemetryInferenceInput = useMemo(() => {
+    if (isRealTelemetry && latest) {
+      return {
+        wellId: 'BGW-01',
+        field: 'Baghewala Field',
+        cssPhase: latest.cssPhase,
+        cycleNumber: 14,
+        oilRate: latest.oilRate,
+        reservoirTemp: latest.reservoirTemp,
+        pumpEfficiency: latest.pumpEfficiency,
+        srpSpeed: latest.srpSpeed,
+        strokeLength: latest.strokeLength,
+        steamRate: latest.steamRate,
+        steamTemperature: latest.steamTemperature,
+        fluidLevel: latest.fluidLevel,
+        waterCut: latest.waterCut,
+        wellheadPressure: latest.wellheadPressure,
+        gasRate: latest.gasRate,
+        equipmentRisk: output.equipmentRisk,
+        pumpCondition: latest.pumpCondition,
+        isRealTelemetry: true,
+        recordedAt: latest.recordedAt,
+      };
+    }
+
+    return {
+      wellId: 'BGW-01',
+      field: 'Baghewala Field',
+      cssPhase: cssPhase,
+      cycleNumber: 14,
+      oilRate: output.production,
+      reservoirTemp: output.reservoirTemperature,
+      pumpEfficiency: output.pumpEfficiency,
+      srpSpeed: params.srpSpeed,
+      strokeLength: params.strokeLength,
+      steamRate: params.steamRate,
+      steamTemperature: params.steamTemperature,
+      fluidLevel: params.fluidLevel,
+      equipmentRisk: output.equipmentRisk,
+      pumpCondition: params.pumpCondition,
+      isRealTelemetry: false,
+      recordedAt: lastUpdated ? lastUpdated.toISOString() : null,
+    };
+  }, [isRealTelemetry, latest, output, params, cssPhase, lastUpdated]);
 
   const prodHistory = useMemo(() => generateProductionHistory(7), []);
 
@@ -121,6 +170,9 @@ export default function Overview() {
           dataStatus={status}
         />
       </div>
+
+      {/* ── AI Engineering Surveillance & Real-Time Inference ────────────────── */}
+      <AIInferenceCard telemetryInput={telemetryInput} />
 
       {/* ── Row 2: 3D Twin Preview + Well Status ─────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
