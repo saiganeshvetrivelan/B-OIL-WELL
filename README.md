@@ -103,7 +103,7 @@ This is a **prototype/demo application** with simulated data — all telemetry v
 ## 📁 Project Structure
 
 ```
-Arulgnani-Sample-Project/
+OILWELL/
 ├── index.html                     # Vite HTML entry point
 ├── vite.config.ts                 # Vite config (React + Tailwind plugins, port 5173)
 ├── tsconfig.json                  # TypeScript root config
