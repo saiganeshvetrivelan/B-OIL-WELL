@@ -6,9 +6,9 @@ import SliderControl from '../components/controls/SliderControl';
 import { SimulationParams, OptimizationWeights, OptimizationResult } from '../data/types';
 import { runSimulation } from '../engine/formulas';
 import { runOptimization } from '../engine/optimization';
-import { 
-  BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, 
-  CartesianGrid, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar 
+import {
+  BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip,
+  CartesianGrid, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar
 } from 'recharts';
 import { FlaskConical, Play, Target, CheckCircle2, ArrowRight, Loader2, Sparkles } from 'lucide-react';
 
@@ -118,7 +118,7 @@ export default function Simulation() {
                 ACTIVE
               </span>
             </div>
-            
+
             <div className="space-y-2.5 text-xs">
               <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]">
                 <span className="text-[var(--text-secondary)]">Steam Injection Rate:</span>
@@ -228,7 +228,7 @@ export default function Simulation() {
               <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] mb-3">
                 Simulated Output Comparison
               </h3>
-              
+
               <div className="grid grid-cols-4 gap-2 text-xs border-b border-[var(--border-subtle)] pb-2 text-[var(--text-muted)] font-semibold uppercase">
                 <div>Parameter</div>
                 <div className="text-center">Current Case</div>
@@ -327,7 +327,7 @@ export default function Simulation() {
         {/* Objective Weights Matrix */}
         <div className="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-xl p-5 shadow-sm space-y-4">
           <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Objective Weights (0.0 to 1.0)</span>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <SliderControl
               label="Production Maximization"
